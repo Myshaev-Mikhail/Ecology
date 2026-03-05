@@ -1,0 +1,37 @@
+package com.example.ecology.ui.screen.startactivity
+
+import com.example.ecology.ui.screen.BaseViewModel
+import com.example.ecology.ui.screen.startactivity.intents.StartActivityAction
+import com.example.ecology.ui.screen.startactivity.intents.StartActivitySideEffect
+import com.example.ecology.ui.screen.startactivity.intents.StartActivityState
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+
+class StartActivityViewModel: BaseViewModel() {
+    private val uiStateFlow = MutableStateFlow(StartActivityState())
+    val uiStateEmitter = uiStateFlow.asStateFlow()
+
+    private val sideEffectFlow = MutableSharedFlow<StartActivitySideEffect>()
+    val sideEffectEmitter = sideEffectFlow.asSharedFlow()
+
+    fun handleUiAction(action: StartActivityAction) {
+        when (action) {
+            is StartActivityAction.NavigationNewReport -> {
+                launchSafe {
+                    sideEffectFlow.emit(
+                        StartActivitySideEffect.ShowNewReport
+                    )
+                }
+            }
+            is StartActivityAction.NavigationMediaAccess -> {
+                launchSafe {
+                    sideEffectFlow.emit(
+                        StartActivitySideEffect.ShowMediaAccess
+                    )
+                }
+            }
+        }
+    }
+}
