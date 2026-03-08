@@ -57,6 +57,8 @@ open class BaseViewModel: ViewModel() {
     protected open fun handleError(
         throwable: Throwable
     ) {
+        throwable.printStackTrace() // 👈 покажет реальную ошибку
+
         viewModelScope.launch {
             _errorFlow.emit(
                 throwable.message ?: "Unknown error"

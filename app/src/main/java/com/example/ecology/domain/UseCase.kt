@@ -25,3 +25,14 @@ class SaveUserUseCase(
         return repository.isUser()
     }
 }
+
+class LoginUserUseCase(
+    private val repository: UserRepository
+) {
+    suspend operator fun invoke(
+        email: String,
+        password: String
+    ): Boolean {
+        return repository.login(email, password)
+    }
+}

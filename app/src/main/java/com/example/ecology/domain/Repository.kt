@@ -10,4 +10,6 @@ interface ReportRepository {
 interface UserRepository {
     suspend fun saveUser(user: User)
     fun isUser(): Flow<Boolean>
+
+    suspend fun login(email: String, password: String): Boolean
 }

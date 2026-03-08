@@ -59,8 +59,8 @@ fun StartActivityScreen(
                 is StartActivitySideEffect.ShowNewReport -> {
                     navController.navigate(EcologyScreen.NewReport.route)
                 }
-                is StartActivitySideEffect.ShowMediaAccess -> {
-                    navController.navigate(EcologyScreen.MediaAccess.route)
+                is StartActivitySideEffect.ShowLogIn -> {
+                    navController.navigate(EcologyScreen.LogIn.route)
                 }
             }
         }
@@ -153,7 +153,7 @@ fun StartActivityScreen(
                 subtitle = "Получите доступ к данным и аналитике.",
                 background = colorResource(id = R.color.white_background),
                 onClick = {
-                    viewModel.handleUiAction(StartActivityAction.NavigationMediaAccess)
+                    viewModel.handleUiAction(StartActivityAction.NavigationLogIn)
                 }
             )
 

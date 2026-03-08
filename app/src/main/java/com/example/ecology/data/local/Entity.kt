@@ -27,7 +27,10 @@ class Converters {
 
 @Entity(tableName = "user")
 data class UserEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val nickname: String,
     val email: String,
-    val password: String
+    val password: String,
+    val isSubscription: Boolean
 )

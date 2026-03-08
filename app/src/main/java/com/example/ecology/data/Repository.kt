@@ -44,4 +44,8 @@ class UserRepositoryImpl(
     override fun isUser(): Flow<Boolean> {
         return dao.isNotEmpty()
     }
+
+    override suspend fun login(email: String, password: String): Boolean {
+        return dao.login(email, password) != null
+    }
 }

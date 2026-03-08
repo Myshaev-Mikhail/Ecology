@@ -1,7 +1,7 @@
 package com.example.ecology.ui.screen.mediaaccess.intents
 
+import org.reactivestreams.Subscription
+
 data class MediaAccessState(
-    val email: String = "",
-    val password: String = "",
-    val passwordVisible: Boolean = false
+    val isSubscription: Boolean = false
 )

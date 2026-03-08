@@ -12,6 +12,8 @@ fun Report.toEntity() = ReportEntity(
 )
 
 fun User.toEntity() = UserEntity(
+    nickname = nickname,
     email = email,
-    password = password
+    password = password,
+    isSubscription = isSubscription
 )

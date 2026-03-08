@@ -29,27 +29,6 @@ class MediaAccessViewModel(
                     )
                 }
             }
-            is MediaAccessAction.EmailChange -> {
-                launchSafe {
-                    uiStateFlow.value = uiStateFlow.value.copy(
-                        email = action.value
-                    )
-                }
-            }
-            is MediaAccessAction.PasswordChange -> {
-                launchSafe {
-                    uiStateFlow.value = uiStateFlow.value.copy(
-                        password = action.value
-                    )
-                }
-            }
-            is MediaAccessAction.TogglePasswordVisibility -> {
-                launchSafe {
-                    uiStateFlow.value = uiStateFlow.value.copy(
-                        passwordVisible = !uiStateFlow.value.passwordVisible
-                    )
-                }
-            }
             is MediaAccessAction.Subscription -> {
                 launchSafe {
 
@@ -57,14 +36,6 @@ class MediaAccessViewModel(
             }
             is MediaAccessAction.NavigationNewReport -> {
                 launchSafe {
-                    val state = uiStateFlow.value
-                    saveUserUseCase(
-                        User(
-                            email = state.email,
-                            password = state.password,
-                        )
-                    )
-
                     sideEffectFlow.emit(
                         MediaAccessSideEffect.ShowNewReport
                     )

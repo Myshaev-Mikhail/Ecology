@@ -1,5 +1,7 @@
 package com.example.ecology.domain
 
+import android.provider.ContactsContract
+
 data class Report(
     val district: String,
     val street: String,
@@ -9,6 +11,8 @@ data class Report(
 )
 
 data class User(
+    val nickname: String,
     val email: String,
-    val password: String
+    val password: String,
+    val isSubscription: Boolean
 )

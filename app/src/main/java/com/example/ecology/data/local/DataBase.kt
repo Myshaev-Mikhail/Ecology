@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
         ReportEntity::class,
         UserEntity::class
     ],
-    version = 2
+    version = 4
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
