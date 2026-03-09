@@ -1,6 +1,7 @@
 package com.example.ecology.ui.screen.myreport
 
 import androidx.lifecycle.viewModelScope
+import com.example.ecology.data.session.SessionManager
 import com.example.ecology.domain.SaveReportUseCase
 import com.example.ecology.domain.SaveUserUseCase
 import com.example.ecology.ui.screen.BaseViewModel
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 
 class MyReportViewModel(
     private val saveReportUseCase: SaveReportUseCase,
-    private val saveUserUseCase: SaveUserUseCase
+    private val saveUserUseCase: SaveUserUseCase,
+    private val sessionManager: SessionManager
 ): BaseViewModel() {
     private val uiStateFlow = MutableStateFlow(MyReportState())
     val uiStateEmitter = uiStateFlow.asStateFlow()
@@ -29,10 +31,22 @@ class MyReportViewModel(
 
     private fun observeReports() {
         viewModelScope.launch {
-            saveReportUseCase.itemsList().collect { list ->
-                uiStateFlow.value = uiStateFlow.value.copy(
-                    reports = list
-                )
+            sessionManager.currentUserId.collect { userId ->
+                if (userId != null) {
+                    saveReportUseCase.observeUserReports(userId)
+                        .collect { reports ->
+                            uiStateFlow.value = uiStateFlow.value.copy(
+                                reports = reports
+                            )
+                        }
+                } else {
+                    saveReportUseCase.observeGuestReports()
+                        .collect { reports ->
+                            uiStateFlow.value = uiStateFlow.value.copy(
+                                reports = reports
+                            )
+                        }
+                }
             }
         }
 

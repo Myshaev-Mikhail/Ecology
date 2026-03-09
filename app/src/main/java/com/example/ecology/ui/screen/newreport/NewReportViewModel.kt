@@ -1,6 +1,7 @@
 package com.example.ecology.ui.screen.newreport
 
 import androidx.lifecycle.viewModelScope
+import com.example.ecology.data.session.SessionManager
 import com.example.ecology.domain.Report
 import com.example.ecology.domain.SaveReportUseCase
 import com.example.ecology.domain.SaveUserUseCase
@@ -16,15 +17,14 @@ import kotlinx.coroutines.launch
 
 class NewReportViewModel(
     private val saveReportUseCase: SaveReportUseCase,
-    private val saveUserUseCase: SaveUserUseCase
+    private val saveUserUseCase: SaveUserUseCase,
+    private val sessionManager: SessionManager
 ): BaseViewModel() {
     private val uiStateFlow = MutableStateFlow(NewReportState())
     val uiStateEmitter = uiStateFlow.asStateFlow()
 
     private val sideEffectFlow = MutableSharedFlow<NewReportSideEffect>()
     val sideEffectEmitter = sideEffectFlow.asSharedFlow()
-
-    val reports = saveReportUseCase.itemsList()
 
     init {
         viewModelScope.launch {
@@ -35,6 +35,7 @@ class NewReportViewModel(
             }
         }
     }
+
     fun handleUiAction(action: NewReportAction) {
         when (action) {
             is NewReportAction.NavigationMyReport -> {
@@ -89,6 +90,8 @@ class NewReportViewModel(
                     val state = uiStateFlow.value
                     saveReportUseCase(
                         Report(
+                            id = 0,
+                            userId = sessionManager.getUserId(),
                             district = state.district,
                             street = state.street,
                             house = state.house,
@@ -97,12 +100,11 @@ class NewReportViewModel(
                         )
                     )
 
-                    // очищаем форму после сохранения
-                    uiStateFlow.value = NewReportState()
+                    uiStateFlow.value = NewReportState(
+                        isAuthUser = state.isAuthUser
+                    )
                 }
-            }
-
-            else -> {}
+            } else -> {}
         }
     }
 }

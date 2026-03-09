@@ -50,7 +50,7 @@ fun AllReportScreen(
     val viewModel: AllReportViewModel = koinViewModel()
     val uiState by viewModel.uiStateEmitter.collectAsState()
 
-    var selectedReport by remember { mutableStateOf<Report?>(null) }
+    var selectedReport by remember { mutableStateOf<List<Report>?>(null) }
 
     LaunchedEffect(viewModel) {
         viewModel.sideEffectEmitter.collect { effect ->
@@ -105,14 +105,15 @@ fun AllReportScreen(
 
             Spacer(Modifier.height(12.dp))
 
-            uiState.reports.forEach { report ->
+            uiState.reports.forEach { group ->
                 GlobalCard(
-                    district = report.district,
-                    street = report.street,
-                    house = report.house,
-                    description = report.description,
-                    imageUrl = report.photo,
-                    onClick = { selectedReport = report }
+                    district = group.district,
+                    street = group.street,
+                    house = group.house,
+                    description = group.previewReport.description,
+                    imageUrl = group.previewReport.photo,
+                    reportsCount = group.count,
+                    onClick = { selectedReport = group.reports }
                 )
 
                 Spacer(Modifier.height(12.dp))
@@ -120,8 +121,9 @@ fun AllReportScreen(
 
             Spacer(Modifier.height(30.dp))
 
-            selectedReport?.let { report ->
+            selectedReport?.let { reports ->
                 Dialog(onDismissRequest = { selectedReport = null }) {
+
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -134,34 +136,55 @@ fun AllReportScreen(
                             )
                             .padding(20.dp)
                     ) {
-                        Column {
-                            AsyncImage(
-                                model = report.photo,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(220.dp)
-                                    .clip(RoundedCornerShape(16.dp)),
-                                contentScale = ContentScale.Crop
-                            )
-
-                            Spacer(Modifier.height(16.dp))
-
+                        Column(
+                            modifier = Modifier
+                                .heightIn(max = 500.dp)
+                                .verticalScroll(rememberScrollState())
+                        ) {
                             Text(
-                                text = "${report.district}, улица ${report.street} ${report.house}",
+                                text = "Все отчеты по этому адресу",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp
                             )
 
-                            Spacer(Modifier.height(12.dp))
+                            Spacer(Modifier.height(16.dp))
 
-                            Text(
-                                modifier = Modifier
-                                    .heightIn(max = 350.dp)
-                                    .verticalScroll(rememberScrollState()),
-                                text = report.description,
-                                fontSize = 16.sp
-                            )
+                            reports.forEach { report ->
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 20.dp)
+                                ) {
+                                    AsyncImage(
+                                        model = report.photo,
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(200.dp)
+                                            .clip(RoundedCornerShape(16.dp)),
+                                        contentScale = ContentScale.Crop
+                                    )
+
+                                    Spacer(Modifier.height(12.dp))
+
+                                    Text(
+                                        text = "${report.district}, улица ${report.street} ${report.house}",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp
+                                    )
+
+                                    Spacer(Modifier.height(8.dp))
+
+                                    Text(
+                                        text = report.description,
+                                        fontSize = 15.sp
+                                    )
+                                }
+
+                                if (report != reports.last()) {
+                                    Spacer(Modifier.height(12.dp))
+                                }
+                            }
                         }
                     }
                 }

@@ -25,10 +25,10 @@ class StartActivityViewModel: BaseViewModel() {
                     )
                 }
             }
-            is StartActivityAction.NavigationMediaAccess -> {
+            is StartActivityAction.NavigationLogIn -> {
                 launchSafe {
                     sideEffectFlow.emit(
-                        StartActivitySideEffect.ShowMediaAccess
+                        StartActivitySideEffect.ShowLogIn
                     )
                 }
             }
