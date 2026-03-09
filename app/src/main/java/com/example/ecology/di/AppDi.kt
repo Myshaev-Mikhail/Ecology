@@ -15,21 +15,21 @@ val appModule = module {
         StartActivityViewModel()
     }
     viewModel<NewReportViewModel> {
-        NewReportViewModel(get(), get())
+        NewReportViewModel(get(), get(), get())
     }
     viewModel<MyReportViewModel> {
-        MyReportViewModel(get(), get())
+        MyReportViewModel(get(), get(), get())
     }
     viewModel<SignUpViewModel> {
-        SignUpViewModel(get())
+        SignUpViewModel(get(), get())
     }
     viewModel<LogInViewModel> {
-        LogInViewModel(get())
+        LogInViewModel(get(), get())
     }
     viewModel<MediaAccessViewModel> {
         MediaAccessViewModel(get())
     }
     viewModel<AllReportViewModel> {
-        AllReportViewModel(get(), get())
+        AllReportViewModel(get(), get(), get())
     }
 }

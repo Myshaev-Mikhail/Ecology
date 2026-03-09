@@ -14,9 +14,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -46,9 +44,6 @@ import androidx.navigation.NavController
 import com.example.ecology.EcologyScreen
 import com.example.ecology.ui.screen.login.intents.LogInAction
 import com.example.ecology.ui.screen.login.intents.LogInSideEffect
-import com.example.ecology.ui.screen.mediaaccess.MediaAccessViewModel
-import com.example.ecology.ui.screen.mediaaccess.intents.MediaAccessAction
-import com.example.ecology.ui.screen.mediaaccess.intents.MediaAccessSideEffect
 import com.example.ecology.ui.uikit.icons.Leaf
 import com.example.ecology.ui.uikit.icons.Visibility
 import org.koin.androidx.compose.koinViewModel
@@ -68,8 +63,8 @@ fun LogInScreen(
                 is LogInSideEffect.ShowNavigationBack -> {
                     navController.popBackStack()
                 }
-                is LogInSideEffect.ShowNavigationMediaAccess -> {
-                    navController.navigate(EcologyScreen.MediaAccess.route)
+                is LogInSideEffect.ShowNavigationNewReport -> {
+                    navController.navigate(EcologyScreen.NewReport.route)
                 }
                 is LogInSideEffect.ShowNavigationSignUp -> {
                     navController.navigate(EcologyScreen.SignUp.route)
@@ -231,7 +226,7 @@ fun LogInScreen(
 
                 Button(
                     onClick = {
-                        viewModel.handleUiAction(LogInAction.NavigationMediaAccess)
+                        viewModel.handleUiAction(LogInAction.NavigationNewReport)
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = green),
                     shape = RoundedCornerShape(10.dp),

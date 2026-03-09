@@ -1,5 +1,7 @@
 package com.example.ecology.ui.screen.signup
 
+import com.example.ecology.data.local.UserRole
+import com.example.ecology.data.session.SessionManager
 import com.example.ecology.domain.SaveUserUseCase
 import com.example.ecology.domain.User
 import com.example.ecology.ui.screen.BaseViewModel
@@ -12,7 +14,8 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class SignUpViewModel(
-    private val saveUserUseCase: SaveUserUseCase
+    private val saveUserUseCase: SaveUserUseCase,
+    private val sessionManager: SessionManager
 ) : BaseViewModel() {
     private val uiStateFlow = MutableStateFlow(SignUpState())
     val uiStateEmitter = uiStateFlow.asStateFlow()
@@ -76,21 +79,20 @@ class SignUpViewModel(
             }
             is SignUpAction.Subscription -> {
                 launchSafe {
-                    // Сохраняем пользователя с подпиской
                     val currentState = uiStateFlow.value.copy(isSubscription = true)
-                    saveUserUseCase(
-                        User(
-                            nickname = currentState.nickname,
-                            email = currentState.email,
-                            password = currentState.password,
-                            isSubscription = currentState.isSubscription
-                        )
+                    val user = User(
+                        id = 0,
+                        role = UserRole.MEDIA,
+                        nickname = currentState.nickname,
+                        email = currentState.email,
+                        password = currentState.password,
+                        isSubscription = true
                     )
+                    val userId = saveUserUseCase(user)
+                    sessionManager.login(userId)
 
-                    // Переходим на следующий экран
                     sideEffectFlow.emit(SignUpSideEffect.ShowNavigationNewReport)
 
-                    // Только после навигации закрываем popup (если нужно)
                     uiStateFlow.value = currentState.copy(isPopup = false)
                 }
             }

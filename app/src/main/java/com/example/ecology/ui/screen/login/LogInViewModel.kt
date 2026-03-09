@@ -1,5 +1,6 @@
 package com.example.ecology.ui.screen.login
 
+import com.example.ecology.data.session.SessionManager
 import com.example.ecology.domain.LoginUserUseCase
 import com.example.ecology.ui.screen.BaseViewModel
 import com.example.ecology.ui.screen.login.intents.LogInAction
@@ -11,7 +12,8 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class LogInViewModel(
-    private val loginUserUseCase: LoginUserUseCase
+    private val loginUserUseCase: LoginUserUseCase,
+    private val sessionManager: SessionManager
 ) : BaseViewModel() {
     private val uiStateFlow = MutableStateFlow(LogInState())
     val uiStateEmitter = uiStateFlow.asStateFlow()
@@ -49,17 +51,19 @@ class LogInViewModel(
                     )
                 }
             }
-            is LogInAction.NavigationMediaAccess -> {
+            is LogInAction.NavigationNewReport -> {
                 launchSafe {
                     val state = uiStateFlow.value
-                    val success = loginUserUseCase(
+                    val user = loginUserUseCase(
                         state.email,
                         state.password
                     )
 
-                    if (success) {
+                    if (user != null) {
+                        sessionManager.login(user.id)
+
                         sideEffectFlow.emit(
-                            LogInSideEffect.ShowNavigationMediaAccess
+                            LogInSideEffect.ShowNavigationNewReport
                         )
                     } else {
                         sideEffectFlow.emit(

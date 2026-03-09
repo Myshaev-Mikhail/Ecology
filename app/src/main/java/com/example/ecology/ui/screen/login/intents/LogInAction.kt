@@ -5,6 +5,6 @@ sealed class LogInAction {
     data class EmailChange(val value: String) : LogInAction()
     data class PasswordChange(val value: String) : LogInAction()
     data object TogglePasswordVisibility : LogInAction()
-    data object NavigationMediaAccess : LogInAction()
+    data object NavigationNewReport : LogInAction()
     data object NavigationSignUp : LogInAction()
 }

@@ -38,6 +38,7 @@ fun GlobalCard(
     house: String,
     description: String,
     imageUrl: String?,
+    reportsCount: Int,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
@@ -88,7 +89,7 @@ fun GlobalCard(
                         .height(25.dp)
                 ) {
                     Text(
-                        text = " Отчетов",
+                        text = "$reportsCount отчетов",
                         style = MaterialTheme.typography.bodyMedium,
                         color = colorResource(id = R.color.lime)
                     )
