@@ -1,5 +1,6 @@
 package com.example.ecology.ui.screen.signup
 
+import android.R.attr.color
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -23,10 +24,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DividerDefaults.color
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.SnackbarDefaults.color
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -45,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.example.ecology.EcologyScreen
+import com.example.ecology.R
 import com.example.ecology.ui.screen.signup.intents.SignUpAction
 import com.example.ecology.ui.screen.signup.intents.SignUpSideEffect
 import com.example.ecology.ui.uikit.icons.Leaf
@@ -74,9 +79,9 @@ fun SignUpScreen(
         }
     }
 
-    val green = Color(0xFF00C853)
+    val green = colorResource(id = R.color.lime)
     val bgGradient = Brush.verticalGradient(
-        colors = listOf(Color(0xFF021B0F), Color(0xFF06351F))
+        colors = listOf(colorResource(id = R.color.dark_green), colorResource(id = R.color.black_green))
     )
 
     Box(
@@ -130,7 +135,7 @@ fun SignUpScreen(
 
             Text(
                 "Профессиональный портал для экологических репортажей и анализа данных.",
-                color = Color(0xFFB2DFDB),
+                color = colorResource(id = R.color.add_text),
                 fontSize = 14.sp
             )
 
@@ -253,7 +258,7 @@ fun SignUpScreen(
                         viewModel.handleUiAction(SignUpAction.NavigationLogIn)
                     },
                 text = "У вас уже есть аккаунт?",
-                color = Color(0xFFB2DFDB),
+                color = colorResource(id = R.color.add_text),
                 fontSize = 14.sp
             )
 
@@ -293,7 +298,7 @@ fun SignUpScreen(
 
                         Text(
                             "Подтвердите статус медиа-специалиста, чтобы получить доступ к тепловым картам в реальном времени, изображениям высокого разрешения и экспортируемым CSV-отчётам.",
-                            color = Color(0xFFB2DFDB),
+                            color = colorResource(id = R.color.add_text),
                             fontSize = 14.sp
                         )
 

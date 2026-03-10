@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -42,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ecology.EcologyScreen
+import com.example.ecology.R
 import com.example.ecology.ui.screen.login.intents.LogInAction
 import com.example.ecology.ui.screen.login.intents.LogInSideEffect
 import com.example.ecology.ui.uikit.icons.Leaf
@@ -80,9 +82,8 @@ fun LogInScreen(
         }
     }
 
-    val green = Color(0xFF00C853)
     val bgGradient = Brush.verticalGradient(
-        colors = listOf(Color(0xFF021B0F), Color(0xFF06351F))
+        colors = listOf(colorResource(id = R.color.dark_green), colorResource(id = R.color.black_green))
     )
 
     Box(
@@ -121,7 +122,7 @@ fun LogInScreen(
                 Icon(
                     painter = rememberVectorPainter(image = com.example.ecology.ui.uikit.icons.Icons.Leaf),
                     contentDescription = null,
-                    tint = green
+                    tint = colorResource(id = R.color.lime)
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
@@ -136,7 +137,7 @@ fun LogInScreen(
 
             Text(
                 "Профессиональный портал для экологических репортажей и анализа данных.",
-                color = Color(0xFFB2DFDB),
+                color = colorResource(id = R.color.add_text),
                 fontSize = 14.sp
             )
 
@@ -163,10 +164,10 @@ fun LogInScreen(
                 singleLine = true,
                 shape = RoundedCornerShape(14.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = green.copy(alpha = 0.5f),
-                    focusedBorderColor = green,
-                    cursorColor = green,
-                    focusedLabelColor = green,
+                    unfocusedBorderColor = colorResource(id = R.color.lime).copy(alpha = 0.5f),
+                    focusedBorderColor = colorResource(id = R.color.lime),
+                    cursorColor = colorResource(id = R.color.lime),
+                    focusedLabelColor = colorResource(id = R.color.lime),
                     unfocusedLabelColor = Color.Gray,
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White
@@ -201,10 +202,10 @@ fun LogInScreen(
                     }
                 },
                 colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = green.copy(alpha = 0.5f),
-                    focusedBorderColor = green,
-                    cursorColor = green,
-                    focusedLabelColor = green,
+                    unfocusedBorderColor = colorResource(id = R.color.lime).copy(alpha = 0.5f),
+                    focusedBorderColor = colorResource(id = R.color.lime),
+                    cursorColor = colorResource(id = R.color.lime),
+                    focusedLabelColor = colorResource(id = R.color.lime),
                     unfocusedLabelColor = Color.Gray,
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White
@@ -216,7 +217,7 @@ fun LogInScreen(
 
             Text(
                 text = "Забыли пароль?",
-                color = green,
+                color = colorResource(id = R.color.lime),
                 fontSize = 14.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.End
@@ -228,7 +229,7 @@ fun LogInScreen(
                     onClick = {
                         viewModel.handleUiAction(LogInAction.NavigationNewReport)
                     },
-                    colors = ButtonDefaults.buttonColors(containerColor = green),
+                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.lime)),
                     shape = RoundedCornerShape(10.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -245,7 +246,7 @@ fun LogInScreen(
                         viewModel.handleUiAction(LogInAction.NavigationSignUp)
                     },
                 text = "Хотите зарегистрироваться?",
-                color = Color(0xFFB2DFDB),
+                color = colorResource(id = R.color.add_text),
                 fontSize = 14.sp
             )
 

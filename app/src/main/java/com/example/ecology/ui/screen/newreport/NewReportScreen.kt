@@ -97,7 +97,7 @@ fun NewReportScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF4F6F7))
+            .background(colorResource(id = R.color.background))
             .padding(top = 52.dp)
             .padding(4.dp)
     ) {
@@ -265,7 +265,7 @@ fun NewReportScreen(
                     .fillMaxWidth()
                     .height(56.dp)
                     .clip(RoundedCornerShape(14.dp))
-                    .background(Color(0xFF00E600))
+                    .background(colorResource(id = R.color.lime))
                     .clickable {
                         viewModel.handleUiAction(NewReportAction.SubmitClick)
                     },

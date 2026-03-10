@@ -80,16 +80,17 @@ fun GlobalCard(
                     modifier = Modifier
                         .clip(RoundedCornerShape(28.dp))
                         .border(
-                            width = 3.dp,
+                            width = 1.dp,
                             color = colorResource(id = R.color.lime).copy(alpha = 0.3f),
                             shape = RoundedCornerShape(28.dp)
                         )
                         .background(colorResource(id = R.color.lime).copy(alpha = 0.1f))
                         .width(80.dp)
-                        .height(25.dp)
+                        .height(25.dp),
+                    contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "$reportsCount отчетов",
+                        text = reportsText(reportsCount),
                         style = MaterialTheme.typography.bodyMedium,
                         color = colorResource(id = R.color.lime)
                     )
@@ -112,4 +113,17 @@ fun GlobalCard(
             }
         }
     }
+}
+
+fun reportsText(count: Int): String {
+    val mod10 = count % 10
+    val mod100 = count % 100
+
+    val word = when {
+        mod10 == 1 && mod100 != 11 -> "отчет"
+        mod10 in 2..4 && mod100 !in 12..14 -> "отчета"
+        else -> "отчетов"
+    }
+
+    return "$count $word"
 }
