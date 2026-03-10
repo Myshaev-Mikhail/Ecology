@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,6 +35,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.ecology.EcologyScreen
+import com.example.ecology.R
 import com.example.ecology.domain.Report
 import com.example.ecology.ui.screen.allreport.intents.AllReportAction
 import com.example.ecology.ui.screen.allreport.intents.AllReportSideEffect
@@ -68,7 +70,7 @@ fun AllReportScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF4F6F7))
+            .background(colorResource(id = R.color.background))
             .padding(top = 52.dp)
             .padding(4.dp)
     ) {
@@ -87,7 +89,7 @@ fun AllReportScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF4F6F7))
+                .background(colorResource(id = R.color.background))
                 .verticalScroll(rememberScrollState())
                 .padding(12.dp)
                 .padding(top = 44.dp)
