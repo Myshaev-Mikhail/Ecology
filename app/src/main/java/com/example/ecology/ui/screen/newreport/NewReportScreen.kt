@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -83,10 +84,11 @@ fun NewReportScreen(
 
     LaunchedEffect(viewModel) {
         viewModel.sideEffectEmitter.collect { effect ->
-            when(effect) {
+            when (effect) {
                 is NewReportSideEffect.ShowNavigationMyReport -> {
                     navController.navigate(EcologyScreen.MyReport.route)
                 }
+
                 is NewReportSideEffect.ShowNavigationAllReport -> {
                     navController.navigate(EcologyScreen.AllReport.route)
                 }
@@ -116,6 +118,7 @@ fun NewReportScreen(
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
+                .imePadding()
                 .padding(12.dp)
                 .padding(top = 44.dp)
         ) {

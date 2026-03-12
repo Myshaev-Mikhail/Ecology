@@ -19,7 +19,7 @@ class AllReportViewModel(
     private val saveReportUseCase: SaveReportUseCase,
     private val saveUserUseCase: SaveUserUseCase,
     private val sessionManager: SessionManager
-): BaseViewModel() {
+) : BaseViewModel() {
     private val uiStateFlow = MutableStateFlow(AllReportState())
     val uiStateEmitter = uiStateFlow.asStateFlow()
 
@@ -29,6 +29,7 @@ class AllReportViewModel(
     init {
         observe()
     }
+
     private fun observe() {
         val userId = sessionManager.getUserId()
         viewModelScope.launch {
@@ -62,7 +63,7 @@ class AllReportViewModel(
     }
 
     fun handleUiAction(action: AllReportAction) {
-        when(action) {
+        when (action) {
             is AllReportAction.NavigationNewReport -> {
                 launchSafe {
                     sideEffectFlow.emit(
@@ -70,6 +71,7 @@ class AllReportViewModel(
                     )
                 }
             }
+
             is AllReportAction.NavigationMyReport -> {
                 launchSafe {
                     sideEffectFlow.emit(

@@ -18,7 +18,7 @@ class MyReportViewModel(
     private val saveReportUseCase: SaveReportUseCase,
     private val saveUserUseCase: SaveUserUseCase,
     private val sessionManager: SessionManager
-): BaseViewModel() {
+) : BaseViewModel() {
     private val uiStateFlow = MutableStateFlow(MyReportState())
     val uiStateEmitter = uiStateFlow.asStateFlow()
 
@@ -68,6 +68,7 @@ class MyReportViewModel(
                     )
                 }
             }
+
             is MyReportAction.NavigationAllReport -> {
                 launchSafe {
                     sideEffectFlow.emit(

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-open class BaseViewModel: ViewModel() {
+open class BaseViewModel : ViewModel() {
     /**
      * Mutex = только одна coroutine одновременно
      */
@@ -40,11 +40,9 @@ open class BaseViewModel: ViewModel() {
             mutex.withLock {
                 try {
                     block()
-                }
-                catch (e: CancellationException) {
+                } catch (e: CancellationException) {
                     throw e
-                }
-                catch (e: Exception) {
+                } catch (e: Exception) {
                     handleError(e)
                 }
             }
