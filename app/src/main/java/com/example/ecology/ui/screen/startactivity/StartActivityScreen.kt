@@ -49,16 +49,15 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun StartActivityScreen(
     navController: NavController
-    ) {
+) {
     val viewModel: StartActivityViewModel = koinViewModel()
-    val uiState by viewModel.uiStateEmitter.collectAsState()
-    val flags = remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         viewModel.sideEffectEmitter.collect { effect ->
-            when(effect) {
+            when (effect) {
                 is StartActivitySideEffect.ShowNewReport -> {
                     navController.navigate(EcologyScreen.NewReport.route)
                 }
+
                 is StartActivitySideEffect.ShowLogIn -> {
                     navController.navigate(EcologyScreen.LogIn.route)
                 }
@@ -149,7 +148,7 @@ fun StartActivityScreen(
 
             AuthButton(
                 icon = rememberVectorPainter(image = Icons.Camera),
-                title = "вход для репортеров",
+                title = "Вход для медиа",
                 subtitle = "Получите доступ к данным и аналитике.",
                 background = colorResource(id = R.color.white_background),
                 onClick = {

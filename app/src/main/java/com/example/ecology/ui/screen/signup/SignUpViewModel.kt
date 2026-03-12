@@ -1,5 +1,6 @@
 package com.example.ecology.ui.screen.signup
 
+import android.util.Patterns
 import com.example.ecology.data.local.UserRole
 import com.example.ecology.data.session.SessionManager
 import com.example.ecology.domain.SaveUserUseCase
@@ -24,7 +25,7 @@ class SignUpViewModel(
     val sideEffectEmitter = sideEffectFlow.asSharedFlow()
 
     fun handleUiAction(action: SignUpAction) {
-        when(action) {
+        when (action) {
             is SignUpAction.NavigationBack -> {
                 launchSafe {
                     sideEffectFlow.emit(
@@ -32,6 +33,7 @@ class SignUpViewModel(
                     )
                 }
             }
+
             is SignUpAction.NicknameChange -> {
                 launchSafe {
                     uiStateFlow.value = uiStateFlow.value.copy(
@@ -39,6 +41,7 @@ class SignUpViewModel(
                     )
                 }
             }
+
             is SignUpAction.EmailChange -> {
                 launchSafe {
                     uiStateFlow.value = uiStateFlow.value.copy(
@@ -46,6 +49,7 @@ class SignUpViewModel(
                     )
                 }
             }
+
             is SignUpAction.PasswordChange -> {
                 launchSafe {
                     uiStateFlow.value = uiStateFlow.value.copy(
@@ -53,6 +57,7 @@ class SignUpViewModel(
                     )
                 }
             }
+
             is SignUpAction.TogglePasswordVisibility -> {
                 launchSafe {
                     uiStateFlow.value = uiStateFlow.value.copy(
@@ -60,16 +65,28 @@ class SignUpViewModel(
                     )
                 }
             }
+
             is SignUpAction.OnPopup -> {
                 launchSafe {
-                    uiStateFlow.value = uiStateFlow.value.copy(isPopup = true)
+                    val state = uiStateFlow.value
+
+                    if (!isValidEmail(state.email)) {
+                        sideEffectFlow.emit(
+                            SignUpSideEffect.ShowToast("Введите корректный email")
+                        )
+                        return@launchSafe
+                    }
+
+                    uiStateFlow.value = state.copy(isPopup = true)
                 }
             }
+
             is SignUpAction.ClosePopup -> {
                 launchSafe {
                     uiStateFlow.value = uiStateFlow.value.copy(isPopup = false)
                 }
             }
+
             is SignUpAction.NavigationLogIn -> {
                 launchSafe {
                     sideEffectFlow.emit(
@@ -77,6 +94,7 @@ class SignUpViewModel(
                     )
                 }
             }
+
             is SignUpAction.Subscription -> {
                 launchSafe {
                     val currentState = uiStateFlow.value.copy(isSubscription = true)
@@ -97,5 +115,9 @@ class SignUpViewModel(
                 }
             }
         }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

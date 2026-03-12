@@ -59,6 +59,7 @@ fun MyReportScreen(
                 is MyReportSideEffect.ShowNavigationNewReport -> {
                     navController.navigate(EcologyScreen.NewReport.route)
                 }
+
                 is MyReportSideEffect.ShowNavigationAllReport -> {
                     navController.navigate(EcologyScreen.AllReport.route)
                 }
@@ -98,7 +99,7 @@ fun MyReportScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = if(uiState.reports.isEmpty()) {
+                    text = if (uiState.reports.isEmpty()) {
                         "Создайте свой первый отчет, для чистоты нашего города"
                     } else {
                         "Мои отчеты"
@@ -119,7 +120,6 @@ fun MyReportScreen(
                     imageUrl = report.photo,
                     onClick = { selectedReport = report }
                 )
-
                 Spacer(Modifier.height(12.dp))
             }
 

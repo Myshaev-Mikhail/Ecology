@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.ecology.ui.screen.allreport.AllReportScreen
 import com.example.ecology.ui.screen.login.LogInScreen
-import com.example.ecology.ui.screen.mediaaccess.MediaAccessScreen
 import com.example.ecology.ui.screen.myreport.MyReportScreen
 import com.example.ecology.ui.screen.newreport.NewReportScreen
 import com.example.ecology.ui.screen.signup.SignUpScreen
@@ -18,7 +17,6 @@ sealed class EcologyScreen(val route: String) {
     data object MyReport : EcologyScreen("my_report")
     data object SignUp : EcologyScreen("sign_up")
     data object LogIn : EcologyScreen("log_in")
-    data object MediaAccess : EcologyScreen("media_access")
     data object AllReport : EcologyScreen("all_report")
 }
 
@@ -50,11 +48,6 @@ fun NavigationApp(navController: NavHostController) {
         }
         composable(EcologyScreen.LogIn.route) {
             LogInScreen(
-                navController = navController
-            )
-        }
-        composable(EcologyScreen.MediaAccess.route) {
-            MediaAccessScreen(
                 navController = navController
             )
         }

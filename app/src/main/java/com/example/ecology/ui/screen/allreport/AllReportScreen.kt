@@ -60,6 +60,7 @@ fun AllReportScreen(
                 is AllReportSideEffect.ShowNavigationNewReport -> {
                     navController.navigate(EcologyScreen.NewReport.route)
                 }
+
                 is AllReportSideEffect.ShowNavigationMyReport -> {
                     navController.navigate(EcologyScreen.MyReport.route)
                 }

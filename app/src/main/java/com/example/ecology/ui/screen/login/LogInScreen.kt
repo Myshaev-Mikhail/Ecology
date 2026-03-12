@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -65,12 +68,15 @@ fun LogInScreen(
                 is LogInSideEffect.ShowNavigationBack -> {
                     navController.popBackStack()
                 }
+
                 is LogInSideEffect.ShowNavigationNewReport -> {
                     navController.navigate(EcologyScreen.NewReport.route)
                 }
+
                 is LogInSideEffect.ShowNavigationSignUp -> {
                     navController.navigate(EcologyScreen.SignUp.route)
                 }
+
                 is LogInSideEffect.ShowInvalidCredentials -> {
                     Toast.makeText(
                         context,
@@ -95,6 +101,8 @@ fun LogInScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .imePadding()
                 .padding(horizontal = 20.dp),
         ) {
             Spacer(Modifier.height(12.dp))
@@ -152,78 +160,78 @@ fun LogInScreen(
 
                 Spacer(Modifier.height(16.dp))
 
-            OutlinedTextField(
-                value = uiState.email,
-                onValueChange = {
-                    viewModel.handleUiAction(
-                        LogInAction.EmailChange(it)
-                    )
-                },
-                label = { Text("Рабочая почта") },
-                placeholder = { Text("name@organization.com") },
-                singleLine = true,
-                shape = RoundedCornerShape(14.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = colorResource(id = R.color.lime).copy(alpha = 0.5f),
-                    focusedBorderColor = colorResource(id = R.color.lime),
-                    cursorColor = colorResource(id = R.color.lime),
-                    focusedLabelColor = colorResource(id = R.color.lime),
-                    unfocusedLabelColor = Color.Gray,
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(Modifier.height(14.dp))
-
-            OutlinedTextField(
-                value = uiState.password,
-                onValueChange = {
-                    viewModel.handleUiAction(
-                        LogInAction.PasswordChange(it)
-                    )
-                },
-                label = { Text("Пароль") },
-                singleLine = true,
-                shape = RoundedCornerShape(14.dp),
-                visualTransformation = if (uiState.passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                trailingIcon = {
-                    IconButton(onClick = {
+                OutlinedTextField(
+                    value = uiState.email,
+                    onValueChange = {
                         viewModel.handleUiAction(
-                            LogInAction.TogglePasswordVisibility
+                            LogInAction.EmailChange(it)
                         )
-                    }) {
-                        Icon(
-                            painter = rememberVectorPainter(image = com.example.ecology.ui.uikit.icons.Icons.Visibility),
-                            contentDescription = null,
-                            tint = Color.Gray
+                    },
+                    label = { Text("Рабочая почта") },
+                    placeholder = { Text("name@organization.com") },
+                    singleLine = true,
+                    shape = RoundedCornerShape(14.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = colorResource(id = R.color.lime).copy(alpha = 0.5f),
+                        focusedBorderColor = colorResource(id = R.color.lime),
+                        cursorColor = colorResource(id = R.color.lime),
+                        focusedLabelColor = colorResource(id = R.color.lime),
+                        unfocusedLabelColor = Color.Gray,
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(Modifier.height(14.dp))
+
+                OutlinedTextField(
+                    value = uiState.password,
+                    onValueChange = {
+                        viewModel.handleUiAction(
+                            LogInAction.PasswordChange(it)
                         )
-                    }
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = colorResource(id = R.color.lime).copy(alpha = 0.5f),
-                    focusedBorderColor = colorResource(id = R.color.lime),
-                    cursorColor = colorResource(id = R.color.lime),
-                    focusedLabelColor = colorResource(id = R.color.lime),
-                    unfocusedLabelColor = Color.Gray,
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
+                    },
+                    label = { Text("Пароль") },
+                    singleLine = true,
+                    shape = RoundedCornerShape(14.dp),
+                    visualTransformation = if (uiState.passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        IconButton(onClick = {
+                            viewModel.handleUiAction(
+                                LogInAction.TogglePasswordVisibility
+                            )
+                        }) {
+                            Icon(
+                                painter = rememberVectorPainter(image = com.example.ecology.ui.uikit.icons.Icons.Visibility),
+                                contentDescription = null,
+                                tint = Color.Gray
+                            )
+                        }
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = colorResource(id = R.color.lime).copy(alpha = 0.5f),
+                        focusedBorderColor = colorResource(id = R.color.lime),
+                        cursorColor = colorResource(id = R.color.lime),
+                        focusedLabelColor = colorResource(id = R.color.lime),
+                        unfocusedLabelColor = Color.Gray,
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-            Spacer(Modifier.height(8.dp))
+                Spacer(Modifier.height(8.dp))
 
-            Text(
-                text = "Забыли пароль?",
-                color = colorResource(id = R.color.lime),
-                fontSize = 14.sp,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.End
-            )
+                Text(
+                    text = "Забыли пароль?",
+                    color = colorResource(id = R.color.lime),
+                    fontSize = 14.sp,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.End
+                )
 
-            Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Button(
                     onClick = {

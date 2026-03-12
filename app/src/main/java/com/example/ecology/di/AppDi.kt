@@ -3,7 +3,6 @@ package com.example.ecology.di
 import com.example.ecology.ui.screen.allreport.AllReportViewModel
 import com.example.ecology.ui.screen.login.LogInViewModel
 import com.example.ecology.ui.screen.myreport.MyReportViewModel
-import com.example.ecology.ui.screen.mediaaccess.MediaAccessViewModel
 import com.example.ecology.ui.screen.newreport.NewReportViewModel
 import com.example.ecology.ui.screen.signup.SignUpViewModel
 import com.example.ecology.ui.screen.startactivity.StartActivityViewModel
@@ -25,9 +24,6 @@ val appModule = module {
     }
     viewModel<LogInViewModel> {
         LogInViewModel(get(), get())
-    }
-    viewModel<MediaAccessViewModel> {
-        MediaAccessViewModel(get())
     }
     viewModel<AllReportViewModel> {
         AllReportViewModel(get(), get(), get())

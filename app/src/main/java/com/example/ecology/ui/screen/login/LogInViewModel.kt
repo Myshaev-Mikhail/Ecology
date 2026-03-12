@@ -22,7 +22,7 @@ class LogInViewModel(
     val sideEffectEmitter = sideEffectFlow.asSharedFlow()
 
     fun handleUiAction(action: LogInAction) {
-        when(action) {
+        when (action) {
             is LogInAction.NavigationBack -> {
                 launchSafe {
                     sideEffectFlow.emit(
@@ -30,6 +30,7 @@ class LogInViewModel(
                     )
                 }
             }
+
             is LogInAction.EmailChange -> {
                 launchSafe {
                     uiStateFlow.value = uiStateFlow.value.copy(
@@ -37,6 +38,7 @@ class LogInViewModel(
                     )
                 }
             }
+
             is LogInAction.PasswordChange -> {
                 launchSafe {
                     uiStateFlow.value = uiStateFlow.value.copy(
@@ -44,6 +46,7 @@ class LogInViewModel(
                     )
                 }
             }
+
             is LogInAction.TogglePasswordVisibility -> {
                 launchSafe {
                     uiStateFlow.value = uiStateFlow.value.copy(
@@ -51,6 +54,7 @@ class LogInViewModel(
                     )
                 }
             }
+
             is LogInAction.NavigationNewReport -> {
                 launchSafe {
                     val state = uiStateFlow.value
@@ -72,6 +76,7 @@ class LogInViewModel(
                     }
                 }
             }
+
             is LogInAction.NavigationSignUp -> {
                 launchSafe {
                     sideEffectFlow.emit(

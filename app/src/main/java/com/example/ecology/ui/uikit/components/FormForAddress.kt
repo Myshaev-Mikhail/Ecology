@@ -55,7 +55,7 @@ fun FormForAddress(
                 value = district,
                 onValueChange = onDistrictChange,
                 keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.Words,
+                    capitalization = KeyboardCapitalization.Characters,
                 ),
                 textStyle = MaterialTheme.typography.bodyLarge.copy(
                     color = colorResource(id = R.color.black)
@@ -82,7 +82,7 @@ fun FormForAddress(
                 value = street,
                 onValueChange = onStreetChange,
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email
+                    capitalization = KeyboardCapitalization.Characters,
                 ),
                 textStyle = MaterialTheme.typography.bodyLarge.copy(
                     color = colorResource(id = R.color.black)

@@ -19,7 +19,7 @@ class NewReportViewModel(
     private val saveReportUseCase: SaveReportUseCase,
     private val saveUserUseCase: SaveUserUseCase,
     private val sessionManager: SessionManager
-): BaseViewModel() {
+) : BaseViewModel() {
     private val uiStateFlow = MutableStateFlow(NewReportState())
     val uiStateEmitter = uiStateFlow.asStateFlow()
 
@@ -84,7 +84,6 @@ class NewReportViewModel(
                 )
             }
 
-
             is NewReportAction.SubmitClick -> {
                 launchSafe {
                     val state = uiStateFlow.value
@@ -104,7 +103,9 @@ class NewReportViewModel(
                         isAuthUser = state.isAuthUser
                     )
                 }
-            } else -> {}
+            }
+
+            else -> {}
         }
     }
 }
